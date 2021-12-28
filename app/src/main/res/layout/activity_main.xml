@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:ignore="NamespaceTypo">
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorLightGray"
+        android:orientation="horizontal"
+        android:paddingHorizontal="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/addMessageImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            ads:srcCompat="@drawable/outline_add_photo_alternate_24" />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/messageEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_shadow"
+            android:hint="Say something..."
+            android:inputType="text"
+            android:padding="10dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="0.4"
+            android:padding="5dp">
+
+            <com.devlomi.record_view.RecordView
+                android:id="@+id/record_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toTopOf="parent"
+                app:counter_time_color="#ff0000"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                app:slide_to_cancel_arrow="@drawable/recv_ic_arrow"
+                app:slide_to_cancel_arrow_color="#000000"
+                app:slide_to_cancel_bounds="8dp"
+                app:slide_to_cancel_margin_right="10dp"
+                app:slide_to_cancel_text="Slide To Cancel" />
+
+            <com.devlomi.record_view.RecordButton
+                android:id="@+id/record_button"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentBottom="true"
+                android:background="@drawable/recv_bg_mic"
+                android:scaleType="centerInside"
+                ads:layout_constraintBottom_toBottomOf="parent"
+                ads:layout_constraintStart_toStartOf="parent"
+                ads:layout_constraintTop_toTopOf="parent"
+                app:mic_icon="@drawable/recv_ic_mic_white" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        <!--
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/audioFile"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:enabled="false"
+                    android:src="@drawable/microphone" />
+        -->
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/sendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:enabled="false"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/outline_send_gray_24" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/messageRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/linearLayout"
+        android:background="@android:color/white"
+        android:paddingHorizontal="16dp" />
+</RelativeLayout>
