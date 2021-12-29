@@ -8,4 +8,31 @@
     <color name="colorGray">#dedede</color>
     <color name="colorDarkGray">#b4b4b4</color>
     <color name="colorBlue">#2962FF</color>
+    <color name="primaryLight">#94EFE8</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blueFacebook">#3b5998</color>
+    <color name="blueGifts">#282641</color>
+    <color name="lightGrey">#DBDBDB</color>
+    <color name="black">#000000</color>
+    <color name="yellow">#F5BD12</color>
+    <color name="yelloMate">#FCDF8C</color>
+    <color name="blueLight">#448CE1</color>
+    <color name="grayDark">#767676</color>
+    <color name="creamColor">#EEEEEE</color>
+    <color name="red">#F43834</color>
+    <color name="orangeLight">#F1A24D</color>
+    <color name="lightPurple">#AE8FED</color>
+    <color name="lightPurpleContrast">#7E51FF</color>
+    <color name="lightPurple2">#8C92FF</color>
+    <color name="darkPurple">#292741</color>
+    <color name="contrastPurple">#260fc1</color>
+    <color name="tarnsparentWhiteShade">#88ffffff</color>
+    <color name="transparent">#00000000 </color>
+    <color name="skyBlueDark">#037187</color>
+    <color name="babyPink">#F5829F</color>
+    <color name="tagsLightGrey">#EDEDED</color>
+    <color name="trans">#660C0A0A</color>
+    <color name="yiolet">#5B4F75</color>
+    <color name="green">#41B646</color>
+
 </resources>

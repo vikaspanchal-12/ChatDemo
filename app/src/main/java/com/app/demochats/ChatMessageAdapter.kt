@@ -28,48 +28,59 @@ class ChatMessageAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        return if (viewType == VIEW_TYPE_TEXT) {
-            val view = inflater.inflate(R.layout.message, parent, false)
-            val binding = MessageBinding.bind(view)
-            MessageViewHolder(binding)
-        }
-        else if (viewType == VIEW_TYPE_IMAGE) {
-            val view = inflater.inflate(R.layout.image_message, parent, false)
-            val binding = ImageMessageBinding.bind(view)
-            ImageMessageViewHolder(binding)
-
-        }
-        else {
-            val view = inflater.inflate(R.layout.recorder, parent, false)
-            val binding = RecorderBinding.bind(view)
-            RecordViewHolder(binding)
+        return when (viewType) {
+            VIEW_TYPE_TEXT -> {
+                val view = inflater.inflate(R.layout.message, parent, false)
+                val binding = MessageBinding.bind(view)
+                MessageViewHolder(binding)
+            }
+            VIEW_TYPE_IMAGE -> {
+                val view = inflater.inflate(R.layout.image_message, parent, false)
+                val binding = ImageMessageBinding.bind(view)
+                ImageMessageViewHolder(binding)
+            }
+            else -> {
+                val view = inflater.inflate(R.layout.recorder, parent, false)
+                val binding = RecorderBinding.bind(view)
+                RecordViewHolder(binding)
+            }
         }
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int, model: ChatMessageModel) {
-        if (options.snapshots[position].text != null) {
+       /* if (options.snapshots[position].text != null) {
             (holder as MessageViewHolder).bind(model)
         }
-        else if (options.snapshots[position].photoUrl!=null) {
+        else {
             (holder as ImageMessageViewHolder).bind(model)
-        }
-        else
-        {
-            (holder as RecordViewHolder).bind(model)
+        }*/
+        when {
+            options.snapshots[position].text != null -> {
+                (holder as MessageViewHolder).bind(model)
+            }
+
+            options.snapshots[position].photoUrl!=null -> {
+                (holder as ImageMessageViewHolder).bind(model)
+            }
+
+            else ->
+            {
+                (holder as RecordViewHolder).bind(model)
+            }
         }
     }
 
     override fun getItemViewType(position: Int): Int {
-        return if (options.snapshots[position].text != null)
-        {
-            VIEW_TYPE_TEXT
-        }
-        else if (options.snapshots[position].photoUrl!=null)
-        {
-            VIEW_TYPE_IMAGE
-        }
 
-        else VIEW_TYPE_AUDIO
+        return when {
+            options.snapshots[position].text != null -> {
+                VIEW_TYPE_TEXT
+            }
+            options.snapshots[position].photoUrl!=null -> {
+                VIEW_TYPE_IMAGE
+            }
+
+            else -> VIEW_TYPE_AUDIO
+        }
     }
 
     /*This is MessageViewHolder...*/
@@ -80,11 +91,10 @@ class ChatMessageAdapter(
             binding.messengerTextView.text = if (item.name == null)
                 ANONYMOUS
             else
-                StringBuilder().append(item.name)
+                item.name
             //StringBuilder().append(item.name+" "+"komal :)")
             if (item.photoUrl != null) {
                 loadImageIntoView(binding.messengerImageView, item.photoUrl!!)
-
             }
             else
             {
@@ -110,6 +120,7 @@ class ChatMessageAdapter(
             loadImageIntoView(binding.messageImageView, item.imageUrl!!)
             binding.messengerTextView.text = if (item.name == null) ANONYMOUS
             else item.name
+
             if(item.photoUrl != null)
             {
                 loadImageIntoView(binding.messengerImageView, item.photoUrl!!)
@@ -120,22 +131,21 @@ class ChatMessageAdapter(
             }
         }
     }
-
-
     /*This is RecordViewHoler*/
+/*
     inner class RecordViewHolder(private val binding:RecorderBinding): ViewHolder(binding.root){
         fun bind(item: ChatMessageModel) {
-
             loadImageIntoView(binding.audioFileIV, item.audioUrl!!)
             loadImageIntoView(binding.audioFileIV, item.audioUrl!!)
 
             binding.audioUserName.text = if (item.name == null) ANONYMOUS
-
             else
                 item.name
 
-            if(item.audioUrl != null)
+            if(audioUrl != null)
+
             {
+
                 loadUrlIntoView(binding.audioFileIV, item.audioUrl!!)
             }
             else
@@ -144,7 +154,25 @@ class ChatMessageAdapter(
             }
         }
     }
+*/
+    inner class RecordViewHolder(private val binding:RecorderBinding): ViewHolder(binding.root){
+        fun bind(item: ChatMessageModel) {
+            loadUrlIntoView(binding.audioUserProfilePic, item.imageUrl!!)
+            loadUrlIntoView(binding.audioUserProfilePic, item.imageUrl!!)
 
+            binding.audioUserName.text = if (item.name == null) ANONYMOUS
+            else
+                item.name
+            if(item.imageUrl != null)
+            {
+                loadImageIntoView(binding.audioUserProfilePic, item.imageUrl!!)
+            }
+            else
+            {
+                binding.audioUserProfilePic.setImageResource(R.drawable.ic_account_circle_black_36dp)
+            }
+        }
+    }
     private fun loadImageIntoView(view: ImageView?, url: String) {
         if (url.startsWith("gs://")) {
             //To store image in firebase storage...
@@ -165,22 +193,33 @@ class ChatMessageAdapter(
     }
     //LoadLink on imageView....
     private fun loadUrlIntoView(view: ImageView?, url: String) {
-        if (url.startsWith("gs://")) {
-            //To store audio in firebase storage...
-            val storageReference = Firebase.storage.getReferenceFromUrl(url)
-            storageReference.downloadUrl.addOnSuccessListener { uri ->
-                    val audioDownloadUrl = uri.toString()
 
-                    Glide.with(view!!.context).load(audioDownloadUrl).into(view)
-                }
-                .addOnFailureListener { e ->
-                    Log.w(TAG, "Getting download url was not successful.", e)
-                }
+        val storageReference = Firebase.storage.getReferenceFromUrl(url)
+        storageReference.downloadUrl.addOnSuccessListener { uri ->
+
+
+           /* val audioDownloadUrl = uri.toString()
+            Glide.with(view!!.context).load(audioDownloadUrl).into(view)
+            */
+
+
+            Glide.with(view!!.context).load(uri).into(view)
+
+        }
+
+            .addOnFailureListener { e ->
+                Log.w(TAG, "Getting download url was not successful.", e)
+            }
+
+
+       /* if (url.startsWith("gs://")) {
+            //To store audio in firebase storage...
+
         }
         else
         {
             Glide.with(view!!.context).load(url).into(view)
-        }
+        }*/
     }
 
     companion object {

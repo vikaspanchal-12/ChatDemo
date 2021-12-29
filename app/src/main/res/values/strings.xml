@@ -13,4 +13,6 @@
     <string name="cause_crash">Cause Crash</string>
     <string name="banner_ad_unit_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="todo">TODO</string>
+    <string name="ok">ok</string>
+    <string name="let_s_be_a_friends">lets be friends</string>
 </resources>

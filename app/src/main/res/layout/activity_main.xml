@@ -39,7 +39,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_marginTop="10dp"
-            android:layout_weight="0.4"
             android:padding="5dp">
 
             <com.devlomi.record_view.RecordView
@@ -47,8 +46,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                ads:layout_constraintStart_toStartOf="parent"
-                ads:layout_constraintTop_toTopOf="parent"
                 app:counter_time_color="#ff0000"
                 ads:layout_constraintBottom_toBottomOf="parent"
                 app:slide_to_cancel_arrow="@drawable/recv_ic_arrow"
@@ -61,7 +58,7 @@
                 android:id="@+id/record_button"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="false"
                 android:background="@drawable/recv_bg_mic"
                 android:scaleType="centerInside"
                 ads:layout_constraintBottom_toBottomOf="parent"
